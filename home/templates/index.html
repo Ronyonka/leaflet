@@ -3,3 +3,8 @@
 {% block body %}
     <div id="mapid"></div>
 {% endblock body %}
+{% block scripts %}
+<script>
+    const mapbox_token = '{{access_token}}'
+</script>
+{% endblock scripts %}
