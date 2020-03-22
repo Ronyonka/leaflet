@@ -38,7 +38,7 @@ if(covid_cases[j]['coordinates']){
   let active_cases = covid_cases[j]['active']
   let deaths = covid_cases[j]['deaths']
   let recovered = covid_cases[j]['recovered']
-  let point = 1500
+  let point = 50000
   if(cases>100){
     point = (cases/100)*1500
   }
