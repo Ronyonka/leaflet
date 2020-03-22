@@ -39,8 +39,8 @@ if(covid_cases[j]['coordinates']){
   let deaths = covid_cases[j]['deaths']
   let recovered = covid_cases[j]['recovered']
   let point = 50000
-  if(cases>100){
-    point = (cases/100)*1500
+  if(cases>10000){
+    point = (cases/10000)*50000
   }
   let circle = L.circle(covid_cases[j]['coordinates'], {
     color: 'red',
