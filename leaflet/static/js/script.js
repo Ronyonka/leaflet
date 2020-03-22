@@ -3,12 +3,12 @@ function covidCases() {
     
     axios.get('https://corona.lmao.ninja/countries')
       .then(function (response) {
-          for(let i=0; i<response.data.length; i++){
-              let country = response.data[i].country
-              let cases = response.data[i].cases
-              console.log(`${country} has recorded ${cases} cases`)
-          }
-        // console.log(response.data)
+          // for(let i=0; i<response.data.length; i++){
+          //     let country = response.data[i].country
+          //     let cases = response.data[i].cases
+          //     console.log(`${country} has recorded ${cases} cases`)
+          // }
+        console.log(response.data)
       })
       .catch(function (error) {
         console.log(error)
@@ -27,3 +27,16 @@ L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1,
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
+
+for(let j=0; j<covid_cases.length; j++){
+if(covid_cases[j]['coordinates']){
+  var circle = L.circle(covid_cases[j]['coordinates'], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 500
+  }).addTo(mymap);
+}
+}
+
+console.log(covid_cases)

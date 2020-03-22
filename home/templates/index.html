@@ -6,5 +6,6 @@
 {% block scripts %}
 <script>
     const mapbox_token = '{{access_token}}'
+    var covid_cases = {{cases| safe | escape}}
 </script>
 {% endblock scripts %}
