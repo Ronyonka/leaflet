@@ -22,7 +22,7 @@ covidCases()
 // var covid = axios.get()
 // console.log(covid)
 L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${mapbox_token}`, {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    attribution: 'By <a href="https://ronyonka.github.io" target="_blank">Ron Onyonka</a>',
     minZoom: 2,
     maxZoom: 18,
     id: 'mapbox/streets-v11',
@@ -39,12 +39,18 @@ if(covid_cases[j]['coordinates']){
   let deaths = covid_cases[j]['deaths']
   let recovered = covid_cases[j]['recovered']
   let point = 50000
-  if(cases>10000){
+  let point_color = 'green'
+  if(cases>=10000){
+    point_color='red'
     point = (cases/10000)*50000
+  }else if(cases>=1000 && cases<10000){
+    point_color = 'orange'
+  }else if(cases>=100 && cases<1000){
+    point_color = 'yellow'
   }
   let circle = L.circle(covid_cases[j]['coordinates'], {
-    color: 'red',
-    fillColor: '#f03',
+    color: point_color,
+    fillColor: point_color,
     fillOpacity: 0.3,
     radius: point
   }).addTo(mymap);
