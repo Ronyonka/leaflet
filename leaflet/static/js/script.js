@@ -1,4 +1,7 @@
 console.log('This Works!')
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 function covidCases() {
     
     axios.get('https://corona.lmao.ninja/countries')
@@ -35,9 +38,9 @@ if(covid_cases[j]['coordinates']){
   let active_cases = covid_cases[j]['active']
   let deaths = covid_cases[j]['deaths']
   let recovered = covid_cases[j]['recovered']
-  let point = 500
+  let point = 1500
   if(cases>100){
-    point = (cases/100)*500
+    point = (cases/100)*1500
   }
   let circle = L.circle(covid_cases[j]['coordinates'], {
     color: 'red',
@@ -47,7 +50,14 @@ if(covid_cases[j]['coordinates']){
   }).addTo(mymap);
   // let marker = L.marker(covid_cases[j]['coordinates']).addTo(mymap);
   // marker.bindPopup("I am a circle.");
+  if(cases >1){
+    circle.bindPopup(`${country} has recorded ${numberWithCommas(cases)} cases of COVID-19`);
+  }
+  else{
+    circle.bindPopup(`${country} has recorded ${cases} case of COVID-19`);
+  }
 }else{
+  // check for coordinates that are not presents
   console.log(covid_cases[j]['country']+" does not have coordinates")
 }
 }
