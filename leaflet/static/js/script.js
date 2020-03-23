@@ -43,6 +43,8 @@ if(covid_cases[j]['coordinates']){
   if(cases>=10000){
     point_color='red'
     point = (cases/10000)*50000
+  }else if(cases>=50 && cases<100){
+    point_color='blue'
   }else if(cases>=1000 && cases<10000){
     point_color = 'orange'
   }else if(cases>=100 && cases<1000){
@@ -68,4 +70,21 @@ if(covid_cases[j]['coordinates']){
 }
 }
 
+var legend = L.control({ position: "bottomright" });
+
+legend.onAdd = function(mymap) {
+  var div = L.DomUtil.create("div", "legend");
+  div.innerHTML += "<h4>Legend</h4>";
+  div.innerHTML += '<i style="background: green"></i><span>1-49 cases</span><br>';
+  div.innerHTML += '<i style="background: blue"></i><span>49-99 cases</span><br>';
+  div.innerHTML += '<i style="background: yellow"></i><span>100-999 cases</span><br>';
+  div.innerHTML += '<i style="background: orange"></i><span>1,000-9,999 cases</span><br>';
+  div.innerHTML += '<i style="background: red"></i><span>10,000+ cases</span><br>';
+  
+  
+
+  return div;
+};
+
+legend.addTo(mymap);
 // console.log(covid_cases)
