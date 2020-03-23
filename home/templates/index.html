@@ -1,8 +1,70 @@
 {% extends 'base.html' %}
+{% load comma_separator %}
 {% block title %}Home{% endblock title %}
+{% block extracss %}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+{% endblock extracss %}
 {% block body %}
-{% include 'sidebar.html'%}
-    <div id="mapid"></div>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="sidenav">
+            <div class="container">
+                <h2 style="text-align: center;">Total Cases</h2>
+                <p style="text-align: center; font-size: 36px;"><b>{{total_cases|seperator}}</b></p>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <h3 style="text-align: center;">Deaths</h3>
+                        <p style="text-align: center; font-size: 24px;"><b>{{total_deaths|seperator}}</b></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <h3 style="text-align: center;">Recovered</h3>
+                        <p style="text-align: center; font-size: 24px;"><b>{{total_recovered|seperator}}</b></p>
+                    </div>
+                </div>
+                <hr>
+                <h2 style="text-align: center;">Active Cases</h2>
+                <p style="text-align: center; font-size: 36px;"><b>{{total_active|seperator}}</b></p>
+                {% if cases %}
+                <table>
+                    <tr>
+                        <th>Country</th>
+                        <th>Cases</th>
+                        <th>Deaths</th>
+                    </tr>
+                {% for case in cases%}
+                <tr>
+                    <td>{{case.country}}</td>
+                    <td>{{case.cases|seperator}}</td>
+                    <td>{{case.deaths|seperator}}</td>
+                </tr>
+                {% endfor %}
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div id="mapid"></div>
+    </div>
+</div>
+
 {% endblock body %}
 {% block scripts %}
 <script>

@@ -2,9 +2,7 @@ import requests
 from django.shortcuts import render
 from leaflet.settings import ACCESS_TOKEN
 import csv
-import locale
 
-locale.setlocale(locale.LC_ALL, 'en_US')
 def get_request():
     r = requests.get(url='https://corona.lmao.ninja/countries')
     data = r.json()
@@ -69,10 +67,10 @@ def home(request):
     context = {
         'access_token':mapbox_access_token,
         'cases': cases,
-        'total_cases': locale.format("%d", sum_cases, grouping=True),
-        'total_deaths': locale.format("%d", sum_deaths, grouping=True),
-        'total_recovered': locale.format("%d", sum_recovered, grouping=True),
-        'total_active': locale.format("%d", sum_active, grouping=True),
+        'total_cases':sum_cases,
+        'total_deaths':sum_deaths,
+        'total_recovered':sum_recovered,
+        'total_active':sum_active,
     }
     del coordinates['name']
     # print(cases)
