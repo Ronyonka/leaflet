@@ -18,6 +18,7 @@ function covidCases() {
       });   
   }
 var mymap = L.map('mapid').setView([0, 0], 2.6);
+
 covidCases()
 // var covid = axios.get()
 // console.log(covid)
@@ -40,15 +41,18 @@ if(covid_cases[j]['coordinates']){
   let recovered = covid_cases[j]['recovered']
   let point = 50000
   let point_color = 'green'
+  let customPopup = `<h4>${country}</h4><p><b>Cases:</b> ${cases}</p><p><b>Deaths:</b> ${deaths}</p><p><b>Recovered: </b>${recovered}</p><p><b>Active Cases: </b>${active_cases}</p>`
   if(cases>=10000){
     point_color='red'
-    point = (cases/10000)*50000
+    point = 5*50000
   }else if(cases>=50 && cases<100){
     point_color='blue'
   }else if(cases>=1000 && cases<10000){
     point_color = 'orange'
+    point = 2*50000
   }else if(cases>=100 && cases<1000){
     point_color = 'yellow'
+    point = 1.5*50000
   }
   let circle = L.circle(covid_cases[j]['coordinates'], {
     color: point_color,
@@ -58,12 +62,13 @@ if(covid_cases[j]['coordinates']){
   }).addTo(mymap);
   // let marker = L.marker(covid_cases[j]['coordinates']).addTo(mymap);
   // marker.bindPopup("I am a circle.");
-  if(cases >1){
-    circle.bindPopup(`${country} has recorded ${numberWithCommas(cases)} cases of COVID-19`);
-  }
-  else{
-    circle.bindPopup(`${country} has recorded ${cases} case of COVID-19`);
-  }
+  // if(cases >1){
+    circle.bindPopup(customPopup);
+    // circle.bindPopup(`${country} has recorded ${numberWithCommas(cases)} cases of COVID-19`);
+  // }
+  // else{
+  //   circle.bindPopup(`${country} has recorded ${cases} case of COVID-19`);
+  // }
 }else{
   // check for coordinates that are not presents
   console.log(covid_cases[j]['country']+" does not have coordinates")
