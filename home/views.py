@@ -2,6 +2,13 @@ import requests
 from django.shortcuts import render
 from leaflet.settings import ACCESS_TOKEN
 import csv
+import locale
+
+locale.setlocale(locale.LC_ALL, 'en_US')
+def get_request():
+    r = requests.get(url='https://corona.lmao.ninja/countries')
+    data = r.json()
+    return data
 
 def checkKey(dict, key): 
       
@@ -10,10 +17,42 @@ def checkKey(dict, key):
     else: 
         return False
 
+def total_cases():
+    data = get_request()
+    cases = []
+    for i in range(len(data)):
+        cases.append(data[i]['cases'])
+    return sum(cases)
+
+def total_deaths():
+    data = get_request()
+    deaths = []
+    for i in range(len(data)):
+        deaths.append(data[i]['deaths'])
+    return sum(deaths)
+
+def total_recovered():
+    data = get_request()
+    recovered = []
+    for i in range(len(data)):
+        recovered.append(data[i]['recovered'])
+    return sum(recovered)
+
+def total_active():
+    data = get_request()
+    active = []
+    for i in range(len(data)):
+        active.append(data[i]['active'])
+    return sum(active)
+
 def home(request):
     mapbox_access_token = ACCESS_TOKEN
     r = requests.get(url='https://corona.lmao.ninja/countries')
-    cases = r.json() 
+    cases = r.json()
+    sum_cases = total_cases()
+    sum_deaths = total_deaths()
+    sum_recovered = total_recovered()
+    sum_active= total_active()
     coordinates = {}
     with open('countries - longitudes and latitudes.csv', 'r') as file:
         reader = csv.reader(file)
@@ -29,8 +68,12 @@ def home(request):
        
     context = {
         'access_token':mapbox_access_token,
-        'cases': cases
+        'cases': cases,
+        'total_cases': locale.format("%d", sum_cases, grouping=True),
+        'total_deaths': locale.format("%d", sum_deaths, grouping=True),
+        'total_recovered': locale.format("%d", sum_recovered, grouping=True),
+        'total_active': locale.format("%d", sum_active, grouping=True),
     }
     del coordinates['name']
-    print(cases)
+    # print(cases)
     return render(request, 'index.html', context)

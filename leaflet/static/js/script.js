@@ -1,3 +1,4 @@
+// console.log = function() {}
 console.log('This Works!')
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -11,7 +12,7 @@ function covidCases() {
           //     let cases = response.data[i].cases
           //     console.log(`${country} has recorded ${cases} cases`)
           // }
-        // console.log(response.data)
+        console.log(response.data)
       })
       .catch(function (error) {
         console.log(error)
