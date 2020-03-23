@@ -41,7 +41,7 @@ if(covid_cases[j]['coordinates']){
   let recovered = covid_cases[j]['recovered']
   let point = 50000
   let point_color = 'green'
-  let customPopup = `<h4>${country}</h4><p><b>Cases:</b> ${cases}</p><p><b>Deaths:</b> ${deaths}</p><p><b>Recovered: </b>${recovered}</p><p><b>Active Cases: </b>${active_cases}</p>`
+  let customPopup = `<h3>${country}</h3><p><b>Cases:</b> ${numberWithCommas(cases)}</p><p><b>Deaths:</b> ${numberWithCommas(deaths)}</p><p><b>Recovered: </b>${numberWithCommas(recovered)}</p><p><b>Active Cases: </b>${numberWithCommas(active_cases)}</p>`
   if(cases>=10000){
     point_color='red'
     point = 5*50000
@@ -79,12 +79,12 @@ var legend = L.control({ position: "bottomright" });
 
 legend.onAdd = function(mymap) {
   var div = L.DomUtil.create("div", "legend");
-  div.innerHTML += "<h4>Legend</h4>";
-  div.innerHTML += '<i style="background: green"></i><span>1-49 cases</span><br>';
-  div.innerHTML += '<i style="background: blue"></i><span>49-99 cases</span><br>';
-  div.innerHTML += '<i style="background: yellow"></i><span>100-999 cases</span><br>';
-  div.innerHTML += '<i style="background: orange"></i><span>1,000-9,999 cases</span><br>';
-  div.innerHTML += '<i style="background: red"></i><span>10,000+ cases</span><br>';
+  div.innerHTML += "<h4>Covid-19 Cases</h4>";
+  div.innerHTML += '<i style="background: green"></i><span>1-49</span><br>';
+  div.innerHTML += '<i style="background: blue"></i><span>50-99</span><br>';
+  div.innerHTML += '<i style="background: yellow"></i><span>100-999</span><br>';
+  div.innerHTML += '<i style="background: orange"></i><span>1,000-9,999</span><br>';
+  div.innerHTML += '<i style="background: red"></i><span>10,000+</span><br>';
   
   
 
