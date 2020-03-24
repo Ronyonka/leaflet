@@ -1,3 +1,39 @@
-{% load comma_separator %}
 {% load static %}
-
+{% load comma_separator %}
+<div class="sidenav" id="mySidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="container">
+        <h2 style="text-align: center;">Total Cases</h2>
+        <p style="text-align: center; font-size: 36px;"><b>{{total_cases|seperator}}</b></p>
+        <hr>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <h3 style="text-align: center;">Deaths</h3>
+                <p style="text-align: center; font-size: 24px;"><b>{{total_deaths|seperator}}</b></p>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h3 style="text-align: center;">Recovered</h3>
+                <p style="text-align: center; font-size: 24px;"><b>{{total_recovered|seperator}}</b></p>
+            </div>
+        </div>
+        <hr>
+        <h2 style="text-align: center;">Active Cases</h2>
+        <p style="text-align: center; font-size: 36px;"><b>{{total_active|seperator}}</b></p>
+        {% if cases %}
+        <table>
+            <tr>
+                <th>Country</th>
+                <th>Cases</th>
+                <th>Deaths</th>
+            </tr>
+        {% for case in cases%}
+        <tr>
+            <td>{{case.country}}</td>
+            <td>{{case.cases|seperator}}</td>
+            <td>{{case.deaths|seperator}}</td>
+        </tr>
+        {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+</div>

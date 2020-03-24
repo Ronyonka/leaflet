@@ -18,57 +18,48 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
+    .btnStyle {
+    border-radius: 0 15px 15px 0;
+    margin-bottom:25%;
+    background-color: #111; 
+    /* border: 1px solid #3079ED;  */
+    color: #FFFFFF;
+    padding: 4px;
+    width:100px;
+    position: absolute;
+    bottom: 10px;
+    z-index: 999999;
+    cursor: pointer;
+    transition: 0.6s;
+}
 </style>
 {% endblock extracss %}
 {% block body %}
-<div class="row">
-    <div class="col-lg-3">
-        <div class="sidenav">
-            <div class="container">
-                <h2 style="text-align: center;">Total Cases</h2>
-                <p style="text-align: center; font-size: 36px;"><b>{{total_cases|seperator}}</b></p>
-                <hr>
-                <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                        <h3 style="text-align: center;">Deaths</h3>
-                        <p style="text-align: center; font-size: 24px;"><b>{{total_deaths|seperator}}</b></p>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                        <h3 style="text-align: center;">Recovered</h3>
-                        <p style="text-align: center; font-size: 24px;"><b>{{total_recovered|seperator}}</b></p>
-                    </div>
-                </div>
-                <hr>
-                <h2 style="text-align: center;">Active Cases</h2>
-                <p style="text-align: center; font-size: 36px;"><b>{{total_active|seperator}}</b></p>
-                {% if cases %}
-                <table>
-                    <tr>
-                        <th>Country</th>
-                        <th>Cases</th>
-                        <th>Deaths</th>
-                    </tr>
-                {% for case in cases%}
-                <tr>
-                    <td>{{case.country}}</td>
-                    <td>{{case.cases|seperator}}</td>
-                    <td>{{case.deaths|seperator}}</td>
-                </tr>
-                {% endfor %}
-                </table>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-9">
-        <div id="mapid"></div>
-    </div>
+{% include 'sidebar.html' %}
+
+<div id="map-wrapper">
+    <div id="mapid"></div>
+    <span id="btn" class="btnStyle" onclick="openNav()">Details</span>
 </div>
+
 
 {% endblock body %}
 {% block scripts %}
 <script>
     const mapbox_token = '{{access_token}}'
     var covid_cases = {{cases| safe | escape}}
+ 
+    function openNav() {
+    document.getElementById("mySidenav").style.width = "26%";
+    $("#btn").hide()
+    document.getElementById("mapid").style.marginLeft = "26%";
+    }
+
+    function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    $("#btn").show()
+    document.getElementById("mapid").style.marginLeft = "0";
+    }
+
 </script>
 {% endblock scripts %}
