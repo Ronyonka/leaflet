@@ -11,10 +11,11 @@
     width: 100%;
     padding: 0;
     margin: 0;
+    transition: 0.8s;
 }
 .legend {
     padding: 6px 8px;
-    font: 14px Arial, Helvetica, sans-serif;
+    /* font: 14px Arial, Helvetica, sans-serif; */
     background: white;
     background: rgba(255, 255, 255, 0.8);
     /*box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);*/
@@ -90,4 +91,10 @@
 @media screen and (max-height: 450px) {
 .sidenav {padding-top: 15px;}
 .sidenav a {font-size: 18px;}
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .legend{
+        bottom: 20px;
+    }
 }
