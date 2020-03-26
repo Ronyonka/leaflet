@@ -1,4 +1,5 @@
-{% extends 'base.html' %}
+<!-- {% extends 'base.html' %}
+{% load static %}
 {% load comma_separator %}
 {% block title %}Home{% endblock title %}
 {% block extracss %}
@@ -47,18 +48,5 @@
 <script>
     const mapbox_token = '{{access_token}}'
     var covid_cases = {{cases| safe | escape}}
- 
-    function openNav() {
-    document.getElementById("mySidenav").style.width = "26%";
-    $("#btn").hide()
-    document.getElementById("mapid").style.marginLeft = "26%";
-    }
-
-    function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    $("#btn").show()
-    document.getElementById("mapid").style.marginLeft = "0";
-    }
-
 </script>
-{% endblock scripts %}
+{% endblock scripts %} -->
