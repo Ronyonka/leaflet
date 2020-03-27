@@ -34,6 +34,13 @@ L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
 
+  let circle = L.circle([0,0], {
+    color: 'blue',
+    fillColor: 'blue',
+    fillOpacity: 0.3,
+    radius: 50000
+  }).addTo(mymap);
+
 // for(let j=0; j<covid_cases.length; j++){
 // if(covid_cases[j]['coordinates']){
 //   let country = covid_cases[j]['country']
