@@ -1,24 +1,26 @@
 // console.log = function() {}
-
+console.log(typeof(country_coordinates))
 console.log('This Works!')
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-// function covidCases() {
+function covidCases() {
     
-//     axios.get('https://corona.lmao.ninja/countries')
-//       .then(function (response) {
-//           // for(let i=0; i<response.data.length; i++){
-//           //     let country = response.data[i].country
-//           //     let cases = response.data[i].cases
-//           //     console.log(`${country} has recorded ${cases} cases`)
-//           // }
-//         console.log(response.data)
-//       })
-//       .catch(function (error) {
-//         console.log(error)
-//       });   
-//   }
+    axios.get('https://corona.lmao.ninja/countries')
+      .then(function (response) {
+          // for(let i=0; i<response.data.length; i++){
+          //     let country = response.data[i].country
+          //     let cases = response.data[i].cases
+          //     console.log(`${country} has recorded ${cases} cases`)
+          // }
+
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log(error)
+      });   
+  }
+covidCases()
 var mymap = L.map('mapid').setView([0, 0], 2.6);
 
 // covidCases()
@@ -40,6 +42,7 @@ L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     fillOpacity: 0.3,
     radius: 50000
   }).addTo(mymap);
+
 
 // for(let j=0; j<covid_cases.length; j++){
 // if(covid_cases[j]['coordinates']){

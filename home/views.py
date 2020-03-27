@@ -1,27 +1,46 @@
+import requests
+import json
+import csv
+
 from django.shortcuts import render
+
+# importing the access token from the settings module
 from leaflet.settings import ACCESS_TOKEN
+
+
+# def api_request():
+#     '''
+#     Calling the api
+#     '''
+#     url = 'https://corona.lmao.ninja/countries'
+#     response = requests.get(
+#         url,
+#         headers={'Content-Type': 'application/json'} # Using JSON here for readability in the response
+#     )
+#     data = json.loads((response.text)) # converts JSON data to Dictionary format
+#     print(data)
+#     return data
+
+def lng_lat():
+    coordinates = {}
+    with open('countries - longitudes and latitudes.csv', 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            country = row[3]
+            lat = row[1]
+            lng = row[2]
+            coordinates[country]=[lat, lng]
+    del coordinates['name']
+    return coordinates
 
 def home(request):
     access_token=ACCESS_TOKEN
+    coordinates = lng_lat()
     context = {
-        'access_token':access_token
+        'access_token':access_token,
+        'coordinates':coordinates
     }
     return render(request, 'map.html', context)
-# import requests
-# import csv
-# import json
-
-# from django.shortcuts import render
-# from django.http import HttpResponse
-
-# from leaflet.settings import ACCESS_TOKEN
-
-
-# def json_response(something):
-#     return HttpResponse(
-#         json.dumps(something),
-#         content_type = 'application/javascript; charset=utf8'
-#     )
 
 
 # def get_api_data():

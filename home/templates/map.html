@@ -6,6 +6,7 @@
 {% block scripts %}
 <script>
     const mapbox_token = '{{access_token}}'
+    var country_coordinates = {{coordinates | safe | escape}}
 </script>
+
 {% endblock scripts %}
-<script src="{% static 'js/script.js' %}"></script>
