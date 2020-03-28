@@ -2,7 +2,6 @@ covidCases()
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-var data = []
 function covidCases() {
     
     axios.get('https://corona.lmao.ninja/countries')
@@ -11,13 +10,12 @@ function covidCases() {
               let country = response.data[i].country
               if (country in country_coordinates){
                 response.data[i].coordinates= country_coordinates[country]
-                data.push(response.data[i])
-                map_plotting(response.data[i])
+                // calls the map plotting function taking the country data as the parmeter
+                map_plotting(response.data[i]);
               }else{
                 console.log(`${country} does not have coordinates`)
               }
           }
-          // console.log(data[0])
           console.log(response.data)
       })
       .catch(function (error) {
@@ -40,13 +38,6 @@ L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
 
-  // let circle = L.circle([0,0], {
-  //   color: 'blue',
-  //   fillColor: 'blue',
-  //   fillOpacity: 0.3,
-  //   radius: 50000
-  // }).addTo(mymap);
-
 function map_plotting(myobj) {
   let country = myobj['country']
   let cases = myobj['cases']
@@ -56,15 +47,15 @@ function map_plotting(myobj) {
   let point = 50000
   let point_color = 'green'
   let customPopup = `<h3>${country}</h3><p><b>Cases:</b> ${numberWithCommas(cases)}</p><p><b>Deaths:</b> ${numberWithCommas(deaths)}</p><p><b>Recovered: </b>${numberWithCommas(recovered)}</p><p><b>Active Cases: </b>${numberWithCommas(active_cases)}</p>`
-  if(cases>=10000){
+  if(active_cases>=10000){
     point_color='red'
     point = 5*50000
-  }else if(cases>=50 && cases<100){
+  }else if(active_cases>=50 && active_cases<100){
     point_color='blue'
-  }else if(cases>=1000 && cases<10000){
+  }else if(active_cases>=1000 && active_cases<10000){
     point_color = 'orange'
     point = 2*50000
-  }else if(cases>=100 && cases<1000){
+  }else if(active_cases>=100 && active_cases<1000){
     point_color = 'yellow'
     point = 1.5*50000
   }
@@ -77,53 +68,11 @@ function map_plotting(myobj) {
   circle.bindPopup(customPopup);
 }
 
-// for(let j=0; j<covid_cases.length; j++){
-// if(covid_cases[j]['coordinates']){
-//   let country = covid_cases[j]['country']
-//   let cases = covid_cases[j]['cases']
-//   let active_cases = covid_cases[j]['active']
-//   let deaths = covid_cases[j]['deaths']
-//   let recovered = covid_cases[j]['recovered']
-//   let point = 50000
-//   let point_color = 'green'
-//   let customPopup = `<h3>${country}</h3><p><b>Cases:</b> ${numberWithCommas(cases)}</p><p><b>Deaths:</b> ${numberWithCommas(deaths)}</p><p><b>Recovered: </b>${numberWithCommas(recovered)}</p><p><b>Active Cases: </b>${numberWithCommas(active_cases)}</p>`
-//   if(cases>=10000){
-//     point_color='red'
-//     point = 5*50000
-//   }else if(cases>=50 && cases<100){
-//     point_color='blue'
-//   }else if(cases>=1000 && cases<10000){
-//     point_color = 'orange'
-//     point = 2*50000
-//   }else if(cases>=100 && cases<1000){
-//     point_color = 'yellow'
-//     point = 1.5*50000
-//   }
-//   let circle = L.circle(covid_cases[j]['coordinates'], {
-//     color: point_color,
-//     fillColor: point_color,
-//     fillOpacity: 0.3,
-//     radius: point
-//   }).addTo(mymap);
-//   // let marker = L.marker(covid_cases[j]['coordinates']).addTo(mymap);
-//   // marker.bindPopup("I am a circle.");
-//   // if(cases >1){
-//     circle.bindPopup(customPopup);
-//     // circle.bindPopup(`${country} has recorded ${numberWithCommas(cases)} cases of COVID-19`);
-//   // }
-//   // else{
-//   //   circle.bindPopup(`${country} has recorded ${cases} case of COVID-19`);
-//   // }
-// }else{
-//   // check for coordinates that are not presents
-//   console.log(covid_cases[j]['country']+" does not have coordinates")
-// }
-// }
 var legend = L.control({ position: "bottomright" });
 
 legend.onAdd = function(mymap) {
   var div = L.DomUtil.create("div", "legend");
-  div.innerHTML += "<h4>Covid-19 Cases</h4>";
+  div.innerHTML += "<h4>Covid-19 Active Cases</h4>";
   div.innerHTML += '<i style="background: green"></i><span>1-49</span><br>';
   div.innerHTML += '<i style="background: blue"></i><span>50-99</span><br>';
   div.innerHTML += '<i style="background: yellow"></i><span>100-999</span><br>';
