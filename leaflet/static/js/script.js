@@ -1,31 +1,34 @@
-// console.log = function() {}
-console.log(typeof(country_coordinates))
-console.log('This Works!')
+covidCases()
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+var data = []
 function covidCases() {
     
     axios.get('https://corona.lmao.ninja/countries')
       .then(function (response) {
-          // for(let i=0; i<response.data.length; i++){
-          //     let country = response.data[i].country
-          //     let cases = response.data[i].cases
-          //     console.log(`${country} has recorded ${cases} cases`)
-          // }
-
-        console.log(response.data)
+          for(let i=0; i<response.data.length; i++){
+              let country = response.data[i].country
+              if (country in country_coordinates){
+                response.data[i].coordinates= country_coordinates[country]
+                data.push(response.data[i])
+              }else{
+                console.log(`${country} does not have coordinates`)
+              }
+          }
+          console.log(data[0])
+          console.log(response.data)
       })
       .catch(function (error) {
         console.log(error)
       });   
   }
-covidCases()
+
+
 var mymap = L.map('mapid').setView([0, 0], 2.6);
 
-// covidCases()
-// var covid = axios.get()
-// console.log(covid)
+
+
 L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${mapbox_token}`, {
     attribution: 'By <a href="https://ronyonka.github.io" target="_blank">Ron Onyonka</a>',
     minZoom: 2,
@@ -86,7 +89,6 @@ L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 //   console.log(covid_cases[j]['country']+" does not have coordinates")
 // }
 // }
-
 var legend = L.control({ position: "bottomright" });
 
 legend.onAdd = function(mymap) {

@@ -8,19 +8,6 @@ from django.shortcuts import render
 from leaflet.settings import ACCESS_TOKEN
 
 
-# def api_request():
-#     '''
-#     Calling the api
-#     '''
-#     url = 'https://corona.lmao.ninja/countries'
-#     response = requests.get(
-#         url,
-#         headers={'Content-Type': 'application/json'} # Using JSON here for readability in the response
-#     )
-#     data = json.loads((response.text)) # converts JSON data to Dictionary format
-#     print(data)
-#     return data
-
 def lng_lat():
     coordinates = {}
     with open('countries - longitudes and latitudes.csv', 'r') as file:
