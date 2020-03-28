@@ -12,11 +12,12 @@ function covidCases() {
               if (country in country_coordinates){
                 response.data[i].coordinates= country_coordinates[country]
                 data.push(response.data[i])
+                map_plotting(response.data[i])
               }else{
                 console.log(`${country} does not have coordinates`)
               }
           }
-          console.log(data[0])
+          // console.log(data[0])
           console.log(response.data)
       })
       .catch(function (error) {
@@ -39,13 +40,42 @@ L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'your.mapbox.access.token'
 }).addTo(mymap);
 
-  let circle = L.circle([0,0], {
-    color: 'blue',
-    fillColor: 'blue',
-    fillOpacity: 0.3,
-    radius: 50000
-  }).addTo(mymap);
+  // let circle = L.circle([0,0], {
+  //   color: 'blue',
+  //   fillColor: 'blue',
+  //   fillOpacity: 0.3,
+  //   radius: 50000
+  // }).addTo(mymap);
 
+function map_plotting(myobj) {
+  let country = myobj['country']
+  let cases = myobj['cases']
+  let active_cases = myobj['active']
+  let deaths = myobj['deaths']
+  let recovered = myobj['recovered']
+  let point = 50000
+  let point_color = 'green'
+  let customPopup = `<h3>${country}</h3><p><b>Cases:</b> ${numberWithCommas(cases)}</p><p><b>Deaths:</b> ${numberWithCommas(deaths)}</p><p><b>Recovered: </b>${numberWithCommas(recovered)}</p><p><b>Active Cases: </b>${numberWithCommas(active_cases)}</p>`
+  if(cases>=10000){
+    point_color='red'
+    point = 5*50000
+  }else if(cases>=50 && cases<100){
+    point_color='blue'
+  }else if(cases>=1000 && cases<10000){
+    point_color = 'orange'
+    point = 2*50000
+  }else if(cases>=100 && cases<1000){
+    point_color = 'yellow'
+    point = 1.5*50000
+  }
+  let circle = L.circle(myobj['coordinates'], {
+    color: point_color,
+    fillColor: point_color,
+    fillOpacity: 0.3,
+    radius: point
+  }).addTo(mymap);
+  circle.bindPopup(customPopup);
+}
 
 // for(let j=0; j<covid_cases.length; j++){
 // if(covid_cases[j]['coordinates']){
