@@ -15,13 +15,18 @@ function covidCases() {
                   // calls the map plotting function taking the country data as the parmeter
                   map_plotting(response.data[i]);
                 }else{
-                  console.log(`${country} does not have coordinates`)
+                  console.log(`USING ISO2 COUNTRY CODE: ${country_code} Country (${country}) does not have coordinates`)
                 }
               }else{
-                console.log(`${country} does not have an iso2 country code`)
-              }
-          }
-          console.log(response.data)
+                  if (country in country_coordinates){
+                    response.data[i].coordinates= country_coordinates[country]
+                    // calls the map plotting function taking the country data as the parmeter
+                    map_plotting(response.data[i]);
+                  }else{
+                    console.log(`USING FULL COUNTRY NAME: ${country} does not have coordinates`)
+                  }
+          }}
+          // console.log(response.data)
       })
       .catch(function (error) {
         console.log(error)
