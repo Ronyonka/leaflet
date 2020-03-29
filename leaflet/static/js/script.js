@@ -8,12 +8,17 @@ function covidCases() {
       .then(function (response) {
           for(let i=0; i<response.data.length; i++){
               let country = response.data[i].country
-              if (country in country_coordinates){
-                response.data[i].coordinates= country_coordinates[country]
-                // calls the map plotting function taking the country data as the parmeter
-                map_plotting(response.data[i]);
+              if(response.data[i].countryInfo.iso2 !== null){
+                let country_code = response.data[i].countryInfo.iso2
+                if (country_code in country_code_coordinates){
+                  response.data[i].coordinates= country_code_coordinates[country_code]
+                  // calls the map plotting function taking the country data as the parmeter
+                  map_plotting(response.data[i]);
+                }else{
+                  console.log(`${country} does not have coordinates`)
+                }
               }else{
-                console.log(`${country} does not have coordinates`)
+                console.log(`${country} does not have an iso2 country code`)
               }
           }
           console.log(response.data)

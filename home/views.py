@@ -19,13 +19,26 @@ def lng_lat():
             coordinates[country]=[lat, lng]
     del coordinates['name']
     return coordinates
+def lng_lat_country_code():
+    coordinates = {}
+    with open('countries - longitudes and latitudes.csv', 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            country_code = row[0]
+            lat = row[1]
+            lng = row[2]
+            coordinates[country_code]=[lat, lng]
+    del coordinates['country']
+    return coordinates
 
 def home(request):
     access_token=ACCESS_TOKEN
     coordinates = lng_lat()
+    coordinates_coded = lng_lat_country_code()
     context = {
         'access_token':access_token,
-        'coordinates':coordinates
+        'coordinates':coordinates,
+        'coordinates_coded':coordinates_coded
     }
     return render(request, 'map.html', context)
 
