@@ -15,8 +15,13 @@ function covidCases() {
         let deaths = []
         let recovered = []
         let activeCases = []
+        let table_head = "<table><tr><th>Country</th><th>Active Cases</th><th>Deaths</th></tr>"
+        let rows = []
           for(let i=0; i<response.data.length; i++){
               let country = response.data[i].country
+              let country_active = numberWithCommas(response.data[i].active)
+              let country_deaths = numberWithCommas(response.data[i].deaths)
+              rows.push(`<tr> <td>${country}</td> <td>${country_active}</td> <td>${country_deaths}</td></tr>`)
               if(response.data[i].countryInfo.iso2 !== null){
                 let country_code = response.data[i].countryInfo.iso2
                 cases.push(response.data[i]['cases'])
@@ -39,6 +44,10 @@ function covidCases() {
                     console.log(`USING FULL COUNTRY NAME: ${country} does not have coordinates`)
                   }
           }}
+          for(let k=0;k<rows.length;k++){
+            table_head+=rows[k]
+          }
+          $('#table').append(table_head+"</table>")
           $('#cases').append(numberWithCommas(summationData(cases)))
           $('#deaths').append(numberWithCommas(summationData(deaths)))
           $('#recovered').append(numberWithCommas(summationData(recovered)))
