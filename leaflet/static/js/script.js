@@ -2,6 +2,15 @@ covidCases()
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+function summationData(x){
+  return x.reduce((a, b) => a + b, 0)
+}
+
+var cases = []
+var activeCases = []
+var deaths = []
+var recovered = []
 function covidCases() {
     
     axios.get('https://corona.lmao.ninja/countries')
@@ -10,6 +19,10 @@ function covidCases() {
               let country = response.data[i].country
               if(response.data[i].countryInfo.iso2 !== null){
                 let country_code = response.data[i].countryInfo.iso2
+                cases.push(response.data[i]['cases'])
+                recovered.push(response.data[i]['recovered'])
+                deaths.push(response.data[i]['deaths'])
+                activeCases.push(response.data[i]['active'])
                 if (country_code in country_code_coordinates){
                   response.data[i].coordinates= country_code_coordinates[country_code]
                   // calls the map plotting function taking the country data as the parmeter
