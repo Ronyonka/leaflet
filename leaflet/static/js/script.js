@@ -81,13 +81,13 @@ function map_plotting(myobj) {
   let deaths = myobj['deaths']
   let recovered = myobj['recovered']
   let point = 50000
-  let point_color = 'green'
+  let point_color = 'blue'
   let customPopup = `<h3>${country}</h3><p><b>Cases:</b> ${numberWithCommas(cases)}</p><p><b>Deaths:</b> ${numberWithCommas(deaths)}</p><p><b>Recovered: </b>${numberWithCommas(recovered)}</p><p><b>Active Cases: </b>${numberWithCommas(active_cases)}</p>`
   if(active_cases>=10000){
     point_color='red'
     point = 5*50000
   }else if(active_cases>=50 && active_cases<100){
-    point_color='blue'
+    point_color='green'
   }else if(active_cases>=1000 && active_cases<10000){
     point_color = 'orange'
     point = 2*50000
@@ -110,8 +110,8 @@ var legend = L.control({ position: "bottomright" });
 legend.onAdd = function(mymap) {
   var div = L.DomUtil.create("div", "legend");
   div.innerHTML += "<h4>Covid-19 Active Cases</h4>";
-  div.innerHTML += '<i style="background: green"></i><span>1-49</span><br>';
-  div.innerHTML += '<i style="background: blue"></i><span>50-99</span><br>';
+  div.innerHTML += '<i style="background: blue"></i><span>1-49</span><br>';
+  div.innerHTML += '<i style="background: green"></i><span>50-99</span><br>';
   div.innerHTML += '<i style="background: yellow"></i><span>100-999</span><br>';
   div.innerHTML += '<i style="background: orange"></i><span>1,000-9,999</span><br>';
   div.innerHTML += '<i style="background: red"></i><span>10,000+</span><br>';
