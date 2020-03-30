@@ -1,7 +1,45 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extracss %}
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    .btnStyle {
+    border-radius: 0 15px 15px 0;
+    margin-bottom:25%;
+    background-color: #111; 
+    color: #FFFFFF;
+    padding: 4px;
+    width:100px;
+    position: absolute;
+    bottom: 10px;
+    z-index: 999999;
+    cursor: pointer;
+    transition: 1s;
+}
+</style>
+{% endblock extracss %}
 {% block body %}
-<div id="mapid"></div>
+{% include 'sidebar.html' %}
+
+<div id="map-wrapper">
+    <div id="mapid"></div>
+    <span id="btn" class="btnStyle" onclick="openNav()">Details</span>
+</div>
+
 {% endblock body %}
 {% block scripts %}
 <script>

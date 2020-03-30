@@ -7,14 +7,14 @@ function summationData(x){
   return x.reduce((a, b) => a + b, 0)
 }
 
-var cases = []
-var activeCases = []
-var deaths = []
-var recovered = []
 function covidCases() {
     
     axios.get('https://corona.lmao.ninja/countries')
       .then(function (response) {
+        let cases = []
+        let deaths = []
+        let recovered = []
+        let activeCases = []
           for(let i=0; i<response.data.length; i++){
               let country = response.data[i].country
               if(response.data[i].countryInfo.iso2 !== null){
@@ -39,6 +39,10 @@ function covidCases() {
                     console.log(`USING FULL COUNTRY NAME: ${country} does not have coordinates`)
                   }
           }}
+          $('#cases').append(numberWithCommas(summationData(cases)))
+          $('#deaths').append(numberWithCommas(summationData(deaths)))
+          $('#recovered').append(numberWithCommas(summationData(recovered)))
+          $('#active-cases').append(numberWithCommas(summationData(activeCases)))
           // console.log(response.data)
       })
       .catch(function (error) {
@@ -91,6 +95,7 @@ function map_plotting(myobj) {
   circle.bindPopup(customPopup);
 }
 
+
 var legend = L.control({ position: "bottomright" });
 
 legend.onAdd = function(mymap) {
@@ -110,14 +115,32 @@ legend.onAdd = function(mymap) {
 legend.addTo(mymap);
 
 
-// function openNav() {
-//   document.getElementById("mySidenav").style.width = "26%";
-//   $("#btn").hide()
-//   document.getElementById("mapid").style.marginLeft = "26%";
-//   }
+function openNav() {
+  document.getElementById("mySidenav").style.width = "26%";
+  $("#btn").hide()
+  document.getElementById("mapid").style.marginLeft = "26%";
+}
 
-//   function closeNav() {
-//   document.getElementById("mySidenav").style.width = "0";
-//   $("#btn").show()
-//   document.getElementById("mapid").style.marginLeft = "0";
-//   }
+  function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  $("#btn").show()
+  document.getElementById("mapid").style.marginLeft = "0";
+}
+
+
+
+
+//        <table>
+{/* <tr>
+<th>Country</th>
+<th>Cases</th>
+<th>Deaths</th>
+</tr>
+{% for case in cases%}
+<tr>
+<td>{{case.country}}</td>
+<td>{{case.cases|seperator}}</td>
+<td>{{case.deaths|seperator}}</td>
+</tr>
+{% endfor %}
+</table> */}
