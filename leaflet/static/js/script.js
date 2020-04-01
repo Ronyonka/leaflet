@@ -132,7 +132,7 @@ function openNav(width) {
     console.log('below or equal to 480px in width')
   }else{
     document.getElementById("mySidenav").style.width = "26%";
-    document.getElementById("mapid").style.marginLeft = "26%";
+    // document.getElementById("mapid").style.marginLeft = "26%";
     console.log('above 480px in width')
   }
 
