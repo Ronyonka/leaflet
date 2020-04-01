@@ -123,11 +123,21 @@ legend.onAdd = function(mymap) {
 
 legend.addTo(mymap);
 
+var width = matchMedia("(max-width: 480px)")
 
-function openNav() {
-  document.getElementById("mySidenav").style.width = "26%";
+function openNav(width) {
+  if(width.matches){
+    document.getElementById("mySidenav").style.width = "60%";
+    document.getElementById("mapid").style.marginLeft = "60%";
+    console.log('below or equal to 480px in width')
+  }else{
+    document.getElementById("mySidenav").style.width = "26%";
+    document.getElementById("mapid").style.marginLeft = "26%";
+    console.log('above 480px in width')
+  }
+
   $("#btn").hide()
-  document.getElementById("mapid").style.marginLeft = "26%";
+
 }
 
   function closeNav() {
@@ -135,21 +145,3 @@ function openNav() {
   $("#btn").show()
   document.getElementById("mapid").style.marginLeft = "0";
 }
-
-
-
-
-//        <table>
-{/* <tr>
-<th>Country</th>
-<th>Cases</th>
-<th>Deaths</th>
-</tr>
-{% for case in cases%}
-<tr>
-<td>{{case.country}}</td>
-<td>{{case.cases|seperator}}</td>
-<td>{{case.deaths|seperator}}</td>
-</tr>
-{% endfor %}
-</table> */}
