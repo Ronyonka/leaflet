@@ -123,17 +123,17 @@ legend.onAdd = function(mymap) {
 
 legend.addTo(mymap);
 
-var width = matchMedia("(max-width: 480px)")
+var width = matchMedia("(max-width: 600px)")
 
 function openNav(width) {
   if(width.matches){
     document.getElementById("mySidenav").style.width = "60%";
     document.getElementById("mapid").style.marginLeft = "60%";
-    console.log('below or equal to 480px in width')
+    console.log('below or equal to 600px in width')
   }else{
-    document.getElementById("mySidenav").style.width = "26%";
+    document.getElementById("mySidenav").style.width = "28%";
     // document.getElementById("mapid").style.marginLeft = "26%";
-    console.log('above 480px in width')
+    console.log('above 600px in width')
   }
 
   $("#btn").hide()
