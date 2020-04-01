@@ -123,17 +123,19 @@ legend.onAdd = function(mymap) {
 
 legend.addTo(mymap);
 
-var width = matchMedia("(max-width: 600px)")
+var width_phone = matchMedia("(max-width: 600px)")
+var width_tab = matchMedia("(max-width: 800px)")
 
-function openNav(width) {
-  if(width.matches){
+function openNav() {
+  if(width_phone.matches){
     document.getElementById("mySidenav").style.width = "60%";
     document.getElementById("mapid").style.marginLeft = "60%";
-    console.log('below or equal to 600px in width')
+  }else if(width_tab.matches){
+    document.getElementById("mySidenav").style.width = "40%";
+    document.getElementById("mapid").style.marginLeft = "40%";
   }else{
     document.getElementById("mySidenav").style.width = "28%";
     // document.getElementById("mapid").style.marginLeft = "26%";
-    console.log('above 600px in width')
   }
 
   $("#btn").hide()
