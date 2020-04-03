@@ -59,12 +59,11 @@ function covidCases() {
       });   
   }
 
-
 var mymap = L.map('mapid').setView([0, 0], 2.6);
 
 
 
-L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${mapbox_token}`, {
+L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${atob(mapbox_token)}`, {
     attribution: 'By <a href="https://ronyonka.github.io" target="_blank">Ron Onyonka</a>',
     minZoom: 2,
     maxZoom: 18,

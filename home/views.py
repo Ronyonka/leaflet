@@ -1,6 +1,7 @@
 import requests
 import json
 import csv
+import base64
 
 from django.shortcuts import render
 
@@ -32,7 +33,7 @@ def lng_lat_country_code():
     return coordinates
 
 def home(request):
-    access_token=ACCESS_TOKEN
+    access_token=base64.b64encode(ACCESS_TOKEN.encode()).decode()
     coordinates = lng_lat()
     coordinates_coded = lng_lat_country_code()
     context = {
