@@ -9,7 +9,7 @@ function summationData(x){
 
 function covidCases() {
     
-    axios.get('https://corona.lmao.ninja/countries')
+    axios.get('https://corona.lmao.ninja/v2/countries')
       .then(function (response) {
         let cases = []
         let deaths = []
