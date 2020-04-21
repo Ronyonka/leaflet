@@ -80,19 +80,28 @@ function map_plotting(myobj) {
   let deaths = myobj['deaths']
   let recovered = myobj['recovered']
   let point = 50000
-  let point_color = 'blue'
+  let point_color = 'lightgreen'
   let customPopup = `<h3>${country}</h3><p><b>Cases:</b> ${numberWithCommas(cases)}</p><p><b>Deaths:</b> ${numberWithCommas(deaths)}</p><p><b>Recovered: </b>${numberWithCommas(recovered)}</p><p><b>Active Cases: </b>${numberWithCommas(active_cases)}</p>`
-  if(active_cases>=10000){
+  if(active_cases>=100000){
     point_color='red'
     point = 5*50000
   }else if(active_cases>=50 && active_cases<100){
     point_color='green'
-  }else if(active_cases>=1000 && active_cases<10000){
-    point_color = 'orange'
-    point = 2*50000
-  }else if(active_cases>=100 && active_cases<1000){
-    point_color = 'yellow'
+  }else if(active_cases>=100 && active_cases<500){
+    point_color = '#FFFF66'
     point = 1.5*50000
+  }else if(active_cases>=500 && active_cases<1000){
+    point_color = '#ffff00'
+    point = 2*50000
+  }else if(active_cases>=1000 && active_cases<5000){
+    point_color = '#ffc966'
+    point = 2.5*50000
+  }else if(active_cases>=5000 && active_cases<10000){
+    point_color = 'orange'
+    point = 3*50000
+  }else if(active_cases>=10000 && active_cases<100000){
+    point_color = '#ff6666'
+    point = 3.5*50000
   }
   let circle = L.circle(myobj['coordinates'], {
     color: point_color,
@@ -109,11 +118,14 @@ var legend = L.control({ position: "bottomright" });
 legend.onAdd = function(mymap) {
   var div = L.DomUtil.create("div", "legend");
   div.innerHTML += "<h4>Covid-19 Active Cases</h4>";
-  div.innerHTML += '<i style="background: blue"></i><span>1-49</span><br>';
+  div.innerHTML += '<i style="background: lightgreen"></i><span>1-49</span><br>';
   div.innerHTML += '<i style="background: green"></i><span>50-99</span><br>';
-  div.innerHTML += '<i style="background: yellow"></i><span>100-999</span><br>';
-  div.innerHTML += '<i style="background: orange"></i><span>1,000-9,999</span><br>';
-  div.innerHTML += '<i style="background: red"></i><span>10,000+</span><br>';
+  div.innerHTML += '<i style="background: #FFFF66"></i><span>100-499</span><br>';
+  div.innerHTML += '<i style="background: #ffff00"></i><span>500-999</span><br>';
+  div.innerHTML += '<i style="background: #ffc966"></i><span>1,000-4,999</span><br>';
+  div.innerHTML += '<i style="background: orange"></i><span>5,000-9,999</span><br>';
+  div.innerHTML += '<i style="background: #ff6666"></i><span>10,000 - 99,999</span><br>';
+  div.innerHTML += '<i style="background: red"></i><span>100,000+</span><br>';
   
   
 
