@@ -106,7 +106,7 @@ function map_plotting(myobj) {
   let circle = L.circle(myobj['coordinates'], {
     color: point_color,
     fillColor: point_color,
-    fillOpacity: 0.3,
+    fillOpacity: 0.6,
     radius: point
   }).addTo(mymap);
   circle.bindPopup(customPopup);
