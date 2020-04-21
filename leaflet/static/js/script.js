@@ -87,26 +87,27 @@ function map_plotting(myobj) {
     point = 5*50000
   }else if(active_cases>=50 && active_cases<100){
     point_color='green'
+    point = 1.5*50000
   }else if(active_cases>=100 && active_cases<500){
     point_color = '#FFFF66'
-    point = 1.5*50000
+    point = 2*50000
   }else if(active_cases>=500 && active_cases<1000){
     point_color = '#ffff00'
-    point = 2*50000
+    point = 2.5*50000
   }else if(active_cases>=1000 && active_cases<5000){
     point_color = '#ffc966'
-    point = 2.5*50000
+    point = 3*50000
   }else if(active_cases>=5000 && active_cases<10000){
     point_color = 'orange'
-    point = 3*50000
+    point = 3.5*50000
   }else if(active_cases>=10000 && active_cases<100000){
     point_color = '#ff6666'
-    point = 3.5*50000
+    point = 4*50000
   }
   let circle = L.circle(myobj['coordinates'], {
     color: point_color,
     fillColor: point_color,
-    fillOpacity: 0.6,
+    fillOpacity: 0.8,
     radius: point
   }).addTo(mymap);
   circle.bindPopup(customPopup);
